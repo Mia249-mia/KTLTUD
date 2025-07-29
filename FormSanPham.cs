@@ -1,4 +1,4 @@
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using QLCuaHangDienThoai.DataAccess;
 using QLCuaHangDienThoai.Models;
 using System;
@@ -7,24 +7,24 @@ using System.Linq;
 
 namespace QLCuaHangDienThoai
 {
-    // Form qu?n l� s?n ph?m: cho ph�p th�m, s?a, x�a, t�m ki?m s?n ph?m
+    // Form quản lý sản phẩm: cho phép thêm, sửa, xóa, tìm kiếm sản phẩm
     public partial class FormSanPham : Form
     {
-        // Khai b�o c�c bi?n truy xu?t d? li?u v� l?u tr? danh s�ch
-        private readonly Database db = new Database(ConnectionHelper.ConnectionString); // K?t n?i CSDL
-        private SanPhamDAL spDal; // Data Access Layer cho s?n ph?m
-        private List<SanPham> spList; // Danh s�ch s?n ph?m
-        private List<NhaCungCap> nccList; // Danh s�ch nh� cung c?p
-        private NhaCungCapDAL nccDal; // Data Access Layer cho nh� cung c?p
+        // Khai báo các biến truy xuất dữ liệu và lưu trữ danh sách
+        private readonly Database db = new Database(ConnectionHelper.ConnectionString); // Kết nối CSDL
+        private SanPhamDAL spDal; // Data Access Layer cho sản phẩm
+        private List<SanPham> spList; // Danh sách sản phẩm
+        private List<NhaCungCap> nccList; // Danh sách nhà cung cấp
+        private NhaCungCapDAL nccDal; // Data Access Layer cho nhà cung cấp
 
         public FormSanPham()
         {
-            InitializeComponent(); // Kh?i t?o giao di?n
+            InitializeComponent(); // Khởi tạo giao diện
             spDal = new SanPhamDAL(db);
             nccDal = new NhaCungCapDAL(db);
-            LoadNhaCungCap(); // N?p danh s�ch nh� cung c?p l�n combobox
-            LoadSanPham(); // N?p danh s�ch s?n ph?m l�n l??i
-            // G�n s? ki?n cho c�c n�t ch?c n?ng
+            LoadNhaCungCap(); // Nạp danh sách nhà cung cấp lên combobox
+            LoadSanPham(); // Nạp danh sách sản phẩm lên lưới
+            // Gán sự kiện cho các nút chức năng
             btnThemSP.Click += BtnThemSP_Click;
             btnSuaSP.Click += BtnSuaSP_Click;
             btnXoaSP.Click += BtnXoaSP_Click;
@@ -32,7 +32,7 @@ namespace QLCuaHangDienThoai
             dgvSanPham.SelectionChanged += DgvSanPham_SelectionChanged;
         }
 
-        // N?p danh s�ch nh� cung c?p l�n combobox
+        // Nạp danh sách nhà cung cấp lên combobox
         private void LoadNhaCungCap()
         {
             nccList = nccDal.GetAll();
@@ -41,14 +41,14 @@ namespace QLCuaHangDienThoai
             cbNCCSP.ValueMember = "MaNCC";
         }
 
-        // N?p danh s�ch s?n ph?m l�n DataGridView
+        // Nạp danh sách sản phẩm lên DataGridView
         private void LoadSanPham()
         {
             spList = spDal.GetAll();
             dgvSanPham.DataSource = spList.Select(x => new { x.MaSP, x.TenSP, x.DonGia, x.SoLuong, x.MaNCC }).ToList();
         }
 
-        // X? l� khi nh?n n�t Th�m s?n ph?m
+        // Xử lý khi nhấn nút Thêm sản phẩm
         private void BtnThemSP_Click(object sender, EventArgs e)
         {
             var sp = new SanPham
@@ -58,11 +58,11 @@ namespace QLCuaHangDienThoai
                 SoLuong = int.TryParse(txtSoLuongSP.Text, out var sl) ? sl : 0,
                 MaNCC = (int)cbNCCSP.SelectedValue
             };
-            spDal.Insert(sp); // Th�m s?n ph?m v�o CSDL
-            LoadSanPham(); // N?p l?i danh s�ch s?n ph?m
+            spDal.Insert(sp); // Thêm sản phẩm vào CSDL
+            LoadSanPham(); // Nạp lại danh sách sản phẩm
         }
 
-        // X? l� khi nh?n n�t S?a s?n ph?m
+        // Xử lý khi nhấn nút Sửa sản phẩm
         private void BtnSuaSP_Click(object sender, EventArgs e)
         {
             if (dgvSanPham.CurrentRow == null) return;
@@ -75,20 +75,20 @@ namespace QLCuaHangDienThoai
                 SoLuong = int.TryParse(txtSoLuongSP.Text, out var sl) ? sl : 0,
                 MaNCC = (int)cbNCCSP.SelectedValue
             };
-            spDal.Update(sp); // C?p nh?t s?n ph?m trong CSDL
-            LoadSanPham(); // N?p l?i danh s�ch s?n ph?m
+            spDal.Update(sp); // Cập nhật sản phẩm trong CSDL
+            LoadSanPham(); // Nạp lại danh sách sản phẩm
         }
 
-        // X? l� khi nh?n n�t X�a s?n ph?m
+        // Xử lý khi nhấn nút Xóa sản phẩm
         private void BtnXoaSP_Click(object sender, EventArgs e)
         {
             if (dgvSanPham.CurrentRow == null) return;
             int maSP = (int)dgvSanPham.CurrentRow.Cells["MaSP"].Value;
-            spDal.Delete(maSP); // X�a s?n ph?m kh?i CSDL
-            LoadSanPham(); // N?p l?i danh s�ch s?n ph?m
+            spDal.Delete(maSP); // Xóa sản phẩm khỏi CSDL
+            LoadSanPham(); // Nạp lại danh sách sản phẩm
         }
 
-        // X? l� khi nh?n n�t T�m ki?m s?n ph?m
+        // Xử lý khi nhấn nút Tìm kiếm sản phẩm
         private void BtnTimKiemSP_Click(object sender, EventArgs e)
         {
             string keyword = txtTimKiemSP.Text.Trim().ToLower();
@@ -96,7 +96,7 @@ namespace QLCuaHangDienThoai
             dgvSanPham.DataSource = filtered.Select(x => new { x.MaSP, x.TenSP, x.DonGia, x.SoLuong, x.MaNCC }).ToList();
         }
 
-        // Khi ch?n d�ng tr�n DataGridView th� hi?n th? th�ng tin l�n c�c � nh?p li?u
+        // Khi chọn dòng trên DataGridView thì hiển thị thông tin lên các ô nhập liệu
         private void DgvSanPham_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvSanPham.CurrentRow == null) return;

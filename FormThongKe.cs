@@ -1,4 +1,4 @@
-using QLCuaHangDienThoai.DataAccess;
+﻿using QLCuaHangDienThoai.DataAccess;
 using QLCuaHangDienThoai.Models;
 using System;
 using System.Collections.Generic;
@@ -7,29 +7,29 @@ using System.Windows.Forms;
 
 namespace QLCuaHangDienThoai
 {
-    // Form th?ng k� doanh thu: cho ph�p xem t?ng doanh thu v� s? ??n theo ng�y
+    // Form thống kê doanh thu: cho phép xem tổng doanh thu và số đơn theo ngày
     public partial class FormThongKe : Form
     {
-        // Khai b�o c�c bi?n truy xu?t d? li?u v� l?u tr? danh s�ch h�a ??n
-        private readonly Database db = new Database(ConnectionHelper.ConnectionString); // K?t n?i CSDL
-        private HoaDonDAL hdDal; // Data Access Layer cho h�a ??n
-        private List<HoaDon> hdList; // Danh s�ch h�a ??n
+        // Khai báo các biến truy xuất dữ liệu và lưu trữ danh sách hóa đơn
+        private readonly Database db = new Database(ConnectionHelper.ConnectionString); // Kết nối CSDL
+        private HoaDonDAL hdDal; // Data Access Layer cho hóa đơn
+        private List<HoaDon> hdList; // Danh sách hóa đơn
 
         public FormThongKe()
         {
-            InitializeComponent(); // Kh?i t?o giao di?n
+            InitializeComponent(); // Khởi tạo giao diện
             hdDal = new HoaDonDAL(db);
-            btnThongKe.Click += BtnThongKe_Click; // G�n s? ki?n cho n�t Th?ng k�
+            btnThongKe.Click += BtnThongKe_Click; // Gán sự kiện cho nút Thống kê
         }
 
-        // X? l� khi nh?n n�t Th?ng k� doanh thu theo ng�y
+        // Xử lý khi nhấn nút Thống kê doanh thu theo ngày
         private void BtnThongKe_Click(object sender, EventArgs e)
         {
-            DateTime ngay = dtpNgay.Value.Date; // L?y ng�y ???c ch?n
-            hdList = hdDal.GetAll().Where(x => x.NgayLap.Date == ngay).ToList(); // L?c h�a ??n theo ng�y
-            dgvHoaDon.DataSource = hdList.Select(x => new { x.MaHD, x.NgayLap, x.TongTien }).ToList(); // Hi?n th? danh s�ch h�a ??n
-            lblTongDoanhThu.Text = $"T?ng doanh thu: {hdList.Sum(x => x.TongTien):N0}"; // Hi?n th? t?ng doanh thu
-            lblSoDon.Text = $"S? ??n: {hdList.Count}"; // Hi?n th? s? ??n
+            DateTime ngay = dtpNgay.Value.Date; // Lấy ngày được chọn
+            hdList = hdDal.GetAll().Where(x => x.NgayLap.Date == ngay).ToList(); // Lọc hóa đơn theo ngày
+            dgvHoaDon.DataSource = hdList.Select(x => new { x.MaHD, x.NgayLap, x.TongTien }).ToList(); // Hiển thị danh sách hóa đơn
+            lblTongDoanhThu.Text = $"Tổng doanh thu: {hdList.Sum(x => x.TongTien):N0}"; // Hiển thị tổng doanh thu
+            lblSoDon.Text = $"Số đơn: {hdList.Count}"; // Hiển thị số đơn
         }
     }
 }
