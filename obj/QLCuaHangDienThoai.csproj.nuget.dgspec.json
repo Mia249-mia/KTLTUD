@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\CuongTD\\OneDrive\\Documents\\QLCuaHangDienThoaiWinForms\\QLCuaHangDienThoai.csproj": {}
+    "C:\\Users\\CuongTD\\source\\repos\\KTLTUD\\QLCuaHangDienThoai.csproj": {}
   },
   "projects": {
-    "C:\\Users\\CuongTD\\OneDrive\\Documents\\QLCuaHangDienThoaiWinForms\\QLCuaHangDienThoai.csproj": {
+    "C:\\Users\\CuongTD\\source\\repos\\KTLTUD\\QLCuaHangDienThoai.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\CuongTD\\OneDrive\\Documents\\QLCuaHangDienThoaiWinForms\\QLCuaHangDienThoai.csproj",
+        "projectUniqueName": "C:\\Users\\CuongTD\\source\\repos\\KTLTUD\\QLCuaHangDienThoai.csproj",
         "projectName": "QLCuaHangDienThoai",
-        "projectPath": "C:\\Users\\CuongTD\\OneDrive\\Documents\\QLCuaHangDienThoaiWinForms\\QLCuaHangDienThoai.csproj",
+        "projectPath": "C:\\Users\\CuongTD\\source\\repos\\KTLTUD\\QLCuaHangDienThoai.csproj",
         "packagesPath": "C:\\Users\\CuongTD\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\CuongTD\\OneDrive\\Documents\\QLCuaHangDienThoaiWinForms\\obj\\",
+        "outputPath": "C:\\Users\\CuongTD\\source\\repos\\KTLTUD\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -22,15 +22,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net48"
+          "net8.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net48": {
-            "targetAlias": "net48",
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
             "projectReferences": {}
           }
         },
@@ -47,14 +47,34 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net48": {
-          "targetAlias": "net48",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
