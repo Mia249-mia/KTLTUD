@@ -2,6 +2,17 @@
 
 Ứng dụng WinForms quản lý cửa hàng điện thoại, hỗ trợ quản lý sản phẩm, nhà cung cấp, bán hàng và thống kê doanh thu.
 
+## Các công cụ cần thiết
+- **Visual Studio Community 2022** (hoặc mới hơn, có hỗ trợ .NET 8 và WinForms)
+- **SQL Server Express** (hoặc SQL Server bất kỳ)
+- **SQL Server Management Studio (SSMS)** để quản lý và tạo database
+
+## Hướng dẫn tạo database QLCuaHangDienThoai trên SQL Server
+1. Mở **SQL Server Management Studio** và đăng nhập vào SQL Server (ví dụ: `localhost\SQLEXPRESS`).
+2. Click chuột phải vào Databases > chọn **New Database...**
+3. Đặt tên database là `QLCuaHangDienThoai` > nhấn OK.
+4. Chọn database vừa tạo, mở tab **New Query** và chạy các script tạo bảng, dữ liệu mẫu như hướng dẫn bên dưới.
+
 ## Tính năng chính
 - Quản lý nhà cung cấp (thêm, sửa, xóa, tìm kiếm)
 - Quản lý sản phẩm (thêm, sửa, xóa, tìm kiếm)
@@ -102,6 +113,32 @@ INSERT INTO SanPham (TenSP, DonGia, SoLuong, MaNCC) VALUES
 (N'OnePlus 11', 17000000, 10, 12),
 (N'OnePlus Nord CE 3', 8000000, 20, 12);
 ```
+## Cấu trúc project
+```
+QLCuaHangDienThoai/           # Thư mục chính của project
+│
+├── Models/                  # Chứa các class mô hình dữ liệu (SanPham, NhaCungCap, HoaDon, ChiTietHoaDon)
+├── DataAccess/              # Chứa các class truy xuất dữ liệu (DAL) và lớp Database
+├── MainForm.cs              # Giao diện chính, menu chức năng
+├── FormNhaCungCap.cs        # Form quản lý nhà cung cấp
+├── FormSanPham.cs           # Form quản lý sản phẩm
+├── FormBanHang.cs           # Form bán hàng, tạo hóa đơn
+├── FormThongKe.cs           # Form thống kê doanh thu
+├── app.config               # File cấu hình, chứa chuỗi kết nối CSDL
+├── README.md                # Tài liệu hướng dẫn sử dụng, cấu trúc, cài đặt
+└── ...                      # Các file Designer, resource, project file, ...
+```
+
+### Giải thích các file/thư mục chính
+- **Models/**: Định nghĩa các class dữ liệu tương ứng với bảng trong CSDL (SanPham, NhaCungCap, HoaDon, ChiTietHoaDon).
+- **DataAccess/**: Chứa các lớp truy xuất dữ liệu (DAL) như SanPhamDAL, NhaCungCapDAL, HoaDonDAL, ChiTietHoaDonDAL và lớp Database quản lý kết nối.
+- **MainForm.cs**: Giao diện chính, cho phép truy cập các chức năng quản lý, bán hàng, thống kê.
+- **FormNhaCungCap.cs**: Giao diện và logic quản lý nhà cung cấp.
+- **FormSanPham.cs**: Giao diện và logic quản lý sản phẩm.
+- **FormBanHang.cs**: Giao diện và logic bán hàng, tạo hóa đơn.
+- **FormThongKe.cs**: Giao diện và logic thống kê doanh thu.
+- **app.config**: File cấu hình, chứa chuỗi kết nối SQL Server.
+- **README.md**: Tài liệu hướng dẫn sử dụng, cấu trúc, cài đặt project.
 
 ## Cấu hình kết nối CSDL
 - Chuỗi kết nối được cấu hình tại file `app.config`:
